@@ -1,6 +1,7 @@
 package com.newsfeed.controller;
 
 import com.newsfeed.dto.CreateUserRequestDTO;
+import com.newsfeed.dto.CreateUserResponseDTO;
 import com.newsfeed.model.User;
 import com.newsfeed.service.UserService;
 
@@ -11,8 +12,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    public User createUser(CreateUserRequestDTO requestDTO) {
-        return userService.createUser(requestDTO);
+    public CreateUserResponseDTO createUser(CreateUserRequestDTO requestDTO) {
+        CreateUserResponseDTO responseDTO = new CreateUserResponseDTO();
+        User user = userService.createUser(requestDTO);
+        if (user != null) {
+            responseDTO.setSuccess(true);
+        }
+        return responseDTO;
     }
 
     public boolean checkUsername(String username) {

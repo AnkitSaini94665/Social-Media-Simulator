@@ -1,12 +1,12 @@
 package com.newsfeed.util;
 
+import com.newsfeed.dto.CreateUserResponseDTO;
 import com.newsfeed.registry.ObjectRegistry;
 import com.newsfeed.registry.ResourceRegistry;
 import com.newsfeed.controller.UserController;
 import com.newsfeed.dto.CreateUserRequestDTO;
 import com.newsfeed.exception.SignUpFailedException;
 import com.newsfeed.exception.UserAlreadyExistsException;
-import com.newsfeed.model.User;
 import com.newsfeed.model.UserCommand;
 
 import java.util.Scanner;
@@ -43,8 +43,8 @@ public class SignUpHelper {
 
         UserController userController = (UserController) objectRegistry.get(ResourceRegistry.USERCONTROLLER);
         CreateUserRequestDTO requestDTO = new CreateUserRequestDTO(firstName, lastName, username, password);
-        User user = userController.createUser(requestDTO);
-        if (user != null) {
+        CreateUserResponseDTO responseDTO = userController.createUser(requestDTO);
+        if (responseDTO.isSuccess()) {
             System.out.println(CommonConstants.SIGNUP_SUCCESSFUL_MESSAGE);
         } else {
             throw new SignUpFailedException(CommonConstants.SIGNUP_FAILED_MESSAGE);
