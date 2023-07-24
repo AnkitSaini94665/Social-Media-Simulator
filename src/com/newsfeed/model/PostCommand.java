@@ -1,8 +1,11 @@
 package com.newsfeed.model;
 
 public enum PostCommand {
+    COMMENT,
     REPLY,
-    UPVOTE,
-    DOWNVOTE
+    UPVOTEPOST,
+    UPVOTECOMMENT,
+    DOWNVOTEPOST,
+    DOWNVOTECOMMENT
 
 }

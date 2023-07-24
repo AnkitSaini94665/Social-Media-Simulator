@@ -8,19 +8,19 @@ public class User extends BaseModel {
     private String password; //Should be stored as encrypted password or char[]
     private String firstName;
     private String lastName;
-    private List<Comment> posts;
+    private List<Post> posts;
     private List<User> following;
 
-    public User(){
+    public User() {
         this.posts = new ArrayList<>();
         this.following = new ArrayList<>();
     }
 
-    public List<Comment> getPosts() {
+    public List<Post> getPosts() {
         return posts;
     }
 
-    public void setPosts(List<Comment> posts) {
+    public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
 

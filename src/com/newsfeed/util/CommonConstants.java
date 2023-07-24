@@ -10,5 +10,5 @@ public class CommonConstants {
     public static final String INVALID_COMMAND = "Invalid command. Please try again.";
     public static final String LOGIN_COMMAND = "Please enter your command - 'login', 'signup' or Type 'exit' to exit application";
     public static final String SIGNUP_COMMAND = "Select a username or Type 'exit' to logout";
-    public static final String NEWS_FEED_START_MESSAGE = "Please enter one of these commands - 'shownewsfeed','post','follow','upvote','downvote','reply' or type 'logout' to logout.";
+    public static final String NEWS_FEED_START_MESSAGE = "Please enter one of these commands - 'shownewsfeed','post','follow','upvotepost','downvotepost','upvotecomment','downvotecomment','comment','reply' or type 'logout' to logout.";
 }

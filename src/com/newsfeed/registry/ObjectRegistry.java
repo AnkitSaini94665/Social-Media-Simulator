@@ -2,8 +2,10 @@ package com.newsfeed.registry;
 
 import com.newsfeed.controller.UserController;
 import com.newsfeed.repository.CommentRepository;
+import com.newsfeed.repository.PostRepository;
 import com.newsfeed.repository.UserRepository;
 import com.newsfeed.service.CommentService;
+import com.newsfeed.service.PostService;
 import com.newsfeed.service.UserService;
 import com.newsfeed.util.LoginHelper;
 import com.newsfeed.util.NewsFeedHandler;
@@ -24,10 +26,12 @@ public class ObjectRegistry {
     }
 
     public void registerObjects() {
-        CommentRepository commentRepository = new CommentRepository();
-        CommentService commentService = new CommentService(commentRepository);
         UserRepository userRepository = new UserRepository();
         UserService userService = new UserService(userRepository);
+        PostRepository postRepository = new PostRepository();
+        PostService postService = new PostService(postRepository);
+        CommentRepository commentRepository = new CommentRepository();
+        CommentService commentService = new CommentService(commentRepository,postService);
         UserController userController = new UserController(userService);
         LoginHelper loginHelper = new LoginHelper();
         SignUpHelper signUpHelper = new SignUpHelper();
@@ -38,5 +42,6 @@ public class ObjectRegistry {
         this.register(ResourceRegistry.LOGINHELPER, loginHelper);
         this.register(ResourceRegistry.SIGNUPHELPER, signUpHelper);
         this.register(ResourceRegistry.NEWSFEEDHELPER, newsFeedHandler);
+        this.register(ResourceRegistry.POSTSERVICE,postService);
     }
 }

@@ -1,6 +1,7 @@
 package com.newsfeed.util;
 
 import com.newsfeed.model.Comment;
+import com.newsfeed.model.Post;
 import com.newsfeed.model.User;
 
 import java.util.*;
@@ -9,12 +10,12 @@ public class NewsFeedGenerator {
 
     public void generateNewsFeedForUser(User currentUser) {
         List<User> following = currentUser.getFollowing();
-        List<Comment> allPosts = new ArrayList<>(currentUser.getPosts());
+        List<Post> allPosts = new ArrayList<>(currentUser.getPosts());
         for (User user : following) {
             allPosts.addAll(user.getPosts());
         }
         allPosts = getSortedList(allPosts);
-        for (Comment post : allPosts) {
+        for (Post post : allPosts) {
             System.out.println(post.getData());
             System.out.printf("ID = %d, Upvotes = %d, Downvotes = %d, posted %s ago\n", post.getID(), post.getUpvotes(), post.getDownvotes(), getTime(post.getCreateTime()));
             System.out.println("Comments on post - ");
@@ -22,9 +23,8 @@ public class NewsFeedGenerator {
                 System.out.println(comment.getData());
                 System.out.printf("ID = %d, Upvotes = %d, Downvotes = %d, posted %s ago\n", comment.getID(), comment.getUpvotes(), comment.getDownvotes(), getTime(post.getCreateTime()));
                 System.out.println("Replies to this comment - ");
-                for (Comment reply : comment.getComments()) {
-                    System.out.println(reply.getData());
-                    System.out.printf("ID = %d, Upvotes = %d, Downvotes = %d, posted %s ago\n", reply.getID(), reply.getUpvotes(), reply.getDownvotes(), getTime(post.getCreateTime()));
+                for (String reply : comment.getReplies()) {
+                    System.out.println(reply);
                 }
             }
         }
@@ -40,8 +40,8 @@ public class NewsFeedGenerator {
         return mins + " m";
     }
 
-    private List<Comment> getSortedList(List<Comment> allPosts) {
-        Comparator<Comment> comparator = (a, b) -> {
+    private List<Post> getSortedList(List<Post> allPosts) {
+        Comparator<Post> comparator = (a, b) -> {
             int votingScore = (b.getUpvotes() - b.getDownvotes()) - (a.getUpvotes() - a.getDownvotes());
             if (votingScore != 0) {
                 return votingScore;
